@@ -4,17 +4,11 @@ import { globalStyles } from '../styles/Global';
 
 export default function Reviews({navigation}) {
 
-  const pressHandler = () => {
-    navigation.goBack();
-  }
-
   return (
     <View style={globalStyles.container}>
-      <Text>Reviews Screen</Text>
-      <Button 
-        title = 'Back to Home Screen'
-        onPress = {pressHandler}
-      />
+      <Text>{navigation.getParam('title')}</Text>
+      <Text>{navigation.getParam('body')}</Text>
+      <Text>Rating is {navigation.getParam('rating')}</Text>
     </View>
   );
 }
