@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
 import { globalStyles } from '../styles/Global';
 import Card from '../shared/Card';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function Home({ navigation }) {
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const[reviews, setReviews] = useState([
     { title: 'Jennifer Lawrence', rating: 5, body: 'Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, Kentucky, to Karen (Koch), who manages a childrens camp, and Gary Lawrence, who works in construction. She has two older brothers, Ben and Blaine, and has English, German, Irish, and Scottish ancestry', key: '1'},
@@ -14,6 +17,24 @@ export default function Home({ navigation }) {
 
   return (
     <View style={globalStyles.container}>
+
+      <Modal visible={modalOpen} animationType = 'slide'>
+        <View style = {styles.modelContent}>
+          <MaterialIcons 
+            name = 'close'
+            size = {24}
+            style = {{...styles.modalToggle, ...styles.modalClose}}
+            onPress={() => setModalOpen(false)}  
+          />
+          <Text>From Modal</Text>
+        </View>
+      </Modal>
+      <MaterialIcons 
+        name = 'add'
+        size = {24}
+        style = {styles.modalToggle}
+        onPress={() => setModalOpen(true)}  
+      />
       <FlatList
         data = {reviews}
         renderItem={({ item }) => (
@@ -29,3 +50,23 @@ export default function Home({ navigation }) {
   );
 }
 
+const styles = StyleSheet.create({
+  modalComponent: {
+
+  }, 
+  modalToggle: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#f2f2f2',
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: 'center',
+  }, 
+  modalClose: {
+    marginTop: 20,
+    marginBottom: 0
+  }, 
+  modelContent: {
+    flex: 1,
+  }
+})
